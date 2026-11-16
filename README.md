@@ -27,6 +27,7 @@ An analytics-first portfolio project exploring how financial statement data can 
 ## Technology
 
 - **Python:** pandas, NumPy, matplotlib, seaborn, scikit-learn
+- **Data access:** Hugging Face Hub and fsspec
 - **SQL:** PostgreSQL
 - **BI:** Power BI and DAX
 - **Development:** Jupyter, Git, GitHub
@@ -42,15 +43,14 @@ financial-intelligence-audit-analytics/
 │   ├── processed/           # Reproducible derived data; not committed by default
 │   └── external/            # External reference files; not committed by default
 ├── notebooks/
-│   ├── 01_data_understanding.ipynb
-│   ├── 02_data_cleaning.ipynb
-│   ├── 03_exploratory_analysis.ipynb
-│   └── 04_financial_analysis.ipynb
+│   └── 01_data_understanding.ipynb
 ├── sql/                     # Schema and analytical queries
 ├── src/                     # Reusable Python modules
 ├── dashboards/              # Power BI files and exported screenshots
 ├── reports/                 # Findings, methodology, and project notes
-├── docs/                    # Data dictionary and source documentation
+├── docs/
+│   ├── DATASET_REVIEW.md
+│   └── PROJECT_PLAN.md
 ├── tests/                   # Data and logic checks
 ├── requirements.txt
 └── README.md
@@ -58,9 +58,13 @@ financial-intelligence-audit-analytics/
 
 ## Current status
 
-**Stage:** Initial setup and dataset discovery.
+**Stage:** Dataset discovery and initial profiling setup.
 
-No dataset has been selected or validated yet. Dataset selection will be documented before analysis begins. No model performance or fraud-detection results are claimed at this stage.
+The primary dataset candidate is the [Financial Statement Fraud Detection Dataset](https://huggingface.co/datasets/WaguyMZ/Financial_statements_fraud_dataset). Its documentation describes quarterly financial reports, summarized MD&A reports, AAER records, and prepared train/test splits.
+
+The dataset source and limitations are documented in [docs/DATASET_REVIEW.md](docs/DATASET_REVIEW.md). The first notebook, [01_data_understanding.ipynb](notebooks/01_data_understanding.ipynb), loads one explicit time-based split and guides the initial schema and quality checks.
+
+**No analysis results or model performance are claimed yet.** The data must be loaded and inspected before we lock the schema, cleaning rules, or modelling approach.
 
 ## Data and responsible-use principles
 
@@ -73,7 +77,26 @@ No dataset has been selected or validated yet. Dataset selection will be documen
 
 ## Reproducibility
 
-The project will document its Python environment, data sources, cleaning steps, SQL logic, and model evaluation as these are developed. Setup instructions will be added once the first reproducible analysis is in place.
+From the repository root, create an environment and install dependencies:
+
+```bash
+python -m venv .venv
+# Windows PowerShell:
+.venv\Scripts\Activate.ps1
+# macOS/Linux:
+# source .venv/bin/activate
+
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+Open the notebook with Jupyter:
+
+```bash
+jupyter notebook
+```
+
+The project will document its Python environment, data sources, cleaning steps, SQL logic, and model evaluation as these are developed.
 
 ## Author
 
