@@ -5,6 +5,10 @@ matplotlib
 seaborn
 jupyter
 
+# Hugging Face dataset access (hf:// filesystem support)
+huggingface_hub
+fsspec
+
 # SQL connectivity (PostgreSQL)
 sqlalchemy
 psycopg2-binary
