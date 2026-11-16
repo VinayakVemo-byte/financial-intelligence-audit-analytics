@@ -1,0 +1,15 @@
+# Core data analysis
+pandas
+numpy
+matplotlib
+seaborn
+jupyter
+
+# SQL connectivity (PostgreSQL)
+sqlalchemy
+psycopg2-binary
+
+# Machine learning (later phase)
+scikit-learn
+
+# Add pinned versions after the environment is validated.
