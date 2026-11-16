@@ -86,6 +86,4 @@ Accuracy alone will be misleading when positive labels are rare. Later model eva
 
 ## Research citation
 
-Waffo Dzuyo, G. S., Guibon, G., Cerisara, C., & Belmar-Letelier, L. (2025). *Read Between the Lines: A Robust Financial Statement Fraud Detection Framework*. Preprint/version information should be checked against the authors' current research record before final academic citation.
-
-The dataset card also provides a BibTeX citation. We will retain the citation required by the version actually used and verify publication metadata before final submission.
+The dataset card links the associated work under the title *Read Between the Lines: A Robust Financial Statement Fraud Detection Framework* by Waffo Dzuyo, Guibon, Cerisara, and Belmar-Letelier. The dataset card's sample BibTeX uses **2024**, while a separately surfaced preprint record is dated **2025**. We will verify the precise version and publication metadata before choosing the final citation; do not silently assume those dates refer to the same version.
