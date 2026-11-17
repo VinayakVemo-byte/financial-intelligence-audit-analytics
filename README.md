@@ -67,7 +67,7 @@ The primary dataset candidate is the [Financial Statement Fraud Detection Datase
 - [Initial data profile — first successful load](docs/INITIAL_DATA_PROFILE.md)
 - [Notebook 01 — Data Understanding](notebooks/01_data_understanding.ipynb)
 
-The selected time-split, fold 1 files loaded successfully: **11,364 training rows** and **3,507 testing rows**, each with **34 columns**. These are initial load counts, not model results. Detailed schema, missingness, duplicate, target-distribution, and company/time checks are still pending.
+The selected time-split, fold 1 files loaded successfully: **11,364 training rows** and **3,507 testing rows**, each with **34 columns**. Initial training profiling found one all-null column and 12 columns with 94.14% missingness; see the [initial data profile](docs/INITIAL_DATA_PROFILE.md). These are dataset-quality observations, not model results. Test-set profiling, duplicate checks, class distribution, and company/time checks remain pending.
 
 ## Data and responsible-use principles
 
