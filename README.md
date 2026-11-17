@@ -50,6 +50,7 @@ financial-intelligence-audit-analytics/
 ├── reports/                 # Findings, methodology, and project notes
 ├── docs/
 │   ├── DATASET_REVIEW.md
+│   ├── INITIAL_DATA_PROFILE.md
 │   └── PROJECT_PLAN.md
 ├── tests/                   # Data and logic checks
 ├── requirements.txt
@@ -58,13 +59,15 @@ financial-intelligence-audit-analytics/
 
 ## Current status
 
-**Stage:** Dataset discovery and initial profiling setup.
+**Stage:** Dataset discovery and initial profiling.
 
 The primary dataset candidate is the [Financial Statement Fraud Detection Dataset](https://huggingface.co/datasets/WaguyMZ/Financial_statements_fraud_dataset). Its documentation describes quarterly financial reports, summarized MD&A reports, AAER records, and prepared train/test splits.
 
-The dataset source and limitations are documented in [docs/DATASET_REVIEW.md](docs/DATASET_REVIEW.md). The first notebook, [01_data_understanding.ipynb](notebooks/01_data_understanding.ipynb), loads one explicit time-based split and guides the initial schema and quality checks.
+- [Dataset review and source limitations](docs/DATASET_REVIEW.md)
+- [Initial data profile — first successful load](docs/INITIAL_DATA_PROFILE.md)
+- [Notebook 01 — Data Understanding](notebooks/01_data_understanding.ipynb)
 
-**No analysis results or model performance are claimed yet.** The data must be loaded and inspected before we lock the schema, cleaning rules, or modelling approach.
+The selected time-split, fold 1 files loaded successfully: **11,364 training rows** and **3,507 testing rows**, each with **34 columns**. These are initial load counts, not model results. Detailed schema, missingness, duplicate, target-distribution, and company/time checks are still pending.
 
 ## Data and responsible-use principles
 
