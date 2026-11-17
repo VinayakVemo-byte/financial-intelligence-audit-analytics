@@ -67,3 +67,73 @@ The first comparison of the selected fold's training and testing files returned:
 - Same column set: `True`.
 
 Both files therefore expose the same 34 column names. This confirms column-set compatibility for the selected pair, but does not by itself prove identical column ordering, data types, value formats, or semantic definitions. Those checks remain part of the schema review.
+
+
+## Full training-table schema and missingness review
+
+The initial `train.info()` and per-column profile were shared after successfully loading fold 1.
+
+### Training dataset structure
+
+- Rows: 11,364
+- Columns: 34
+- Reported memory usage: approximately 2.7 MB
+- Data types reported by pandas: 3 boolean, 4 float64, 16 int64, and 11 string columns.
+- Unique CIK values: 5,821
+- Unique report_id values: 11,364
+- Unique year values: 10
+- Unique period values: 104
+- Unique mda_quarter_id values: 11,184
+- Unique sic values: 414
+- Unique sicagg values: 10
+- Unique quarter values: 4
+- is_fraud is non-null for all rows and has two distinct values; its class counts have not yet been measured.
+
+These are training-table observations only. The test table still needs equivalent profiling.
+
+### Missingness findings
+
+One column is entirely null in training:
+
+| Column | Non-null | Missing | Missing % |
+|---|---:|---:|---:|
+| mda_year_id | 0 | 11,364 | 100.00% |
+
+Twelve additional columns each have 666 non-null and 10,698 missing values (94.14% missing):
+
+`aaer_no`, `aeer_date`, `role`, `fiscal_quarter`, `url`, `labels`, `summary`, `complaints`, `glabels`, `num_glabels`, `serial_count`, and `total_serial_count`.
+
+The matching non-null counts suggest these fields may describe the same subset of observations. This is a hypothesis, not yet a confirmed relationship. Check row-level co-occurrence and cross-tabulate against `is_fraud` before assigning meaning or using these fields.
+
+### Constant-column warning
+
+The training profile reports one unique non-null value for both `has_nt_mda_year` and `has_nt_mda_quarter`. A constant feature has no variation in this training split and ordinarily cannot help distinguish observations. The actual constant values and whether this also holds in test must be verified.
+
+### Potentially important key observations
+
+- `report_id` has 11,364 unique values across 11,364 rows in training. This is consistent with a unique report identifier in this split, but verify uniqueness in test and confirm its documented meaning.
+- `mda_quarter_id` has 11,184 unique values, fewer than the 11,364 rows. This suggests repeated company-quarter identifiers may exist; inspect duplicate groups before deciding the row grain.
+- `period` is stored as an integer and looks date-like in the sample (YYYYMMDD). Validate all values and parse carefully before date analysis.
+- `aeer_date` is a string and appears only in the sparse subset. Its meaning, chronology, and availability at prediction time must be investigated.
+
+### Analytical and leakage cautions
+
+- Do not drop sparse fields simply because they have many missing values. Missingness may carry information, but it can also reflect the way enforcement records were joined to financial observations.
+- Do not use `aaer_no`, `aeer_date`, `labels`, `glabels`, `summary`, or `complaints` as model predictors until their label construction, chronology, and availability at prediction time are understood.
+- Do not assume null means negative, non-fraudulent, or zero.
+- Check constant flags in both splits.
+- Check duplicate report and company-period keys before aggregation.
+- Compare train and test dtypes and value domains; matching column names do not prove schema equivalence.
+
+### Next profiling steps
+
+1. Compare every train and test column dtype.
+2. Measure missing counts and percentages in test.
+3. Verify constant columns in both splits.
+4. Count exact duplicate rows.
+5. Check uniqueness of `report_id` and duplicates of `mda_quarter_id`.
+6. Measure `is_fraud` class counts and percentages separately in train and test.
+7. Check company overlap and year/period coverage.
+8. Investigate whether the 666-row sparse-field cohort overlaps with the fraud target and whether its information could be available at prediction time.
+
+No data has been removed, imputed, or transformed at this stage.
