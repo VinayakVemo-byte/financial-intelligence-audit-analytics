@@ -56,3 +56,14 @@ The following must be measured using the full training and test data:
 ## Next action
 
 Continue with the schema, missing-value, duplicate, target-distribution, and company/time checks in `notebooks/01_data_understanding.ipynb`. No rows have been cleaned, removed, or transformed at this stage.
+
+
+## Column-set compatibility check
+
+The first comparison of the selected fold's training and testing files returned:
+
+- Columns only in train: none.
+- Columns only in test: none.
+- Same column set: `True`.
+
+Both files therefore expose the same 34 column names. This confirms column-set compatibility for the selected pair, but does not by itself prove identical column ordering, data types, value formats, or semantic definitions. Those checks remain part of the schema review.
